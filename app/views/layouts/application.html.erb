@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Yacmo</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Yacmo</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <% if user_signed_in? %>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <% else %>
+    <%= link_to "サインアップ", new_user_registration_path %>
+    <%= link_to "ログイン", new_user_session_path %>
+    <% end %>
+    <%= yield %>
 
-<%= yield %>
-
-</body>
+  </body>
 </html>
