@@ -1,17 +1,17 @@
 <% if user_signed_in? %>
 <div class="main_div">
   <div>
-    <%= current_user.email %>でログイン中
+    こんにちは、<%= current_user.user_name %>さん
   </div>
   <div class="status_frame">
-    <div class="txt_area_base bgc_gray">
-      体重:
+    <div class="status_area">
+      体重: <%= @latest_body_mass %> kg
     </div>
-    <div class="txt_area_base bgc_gray">
-      歩数:
+    <div class="status_area">
+      歩数: <%= @latest_steps %> 歩
     </div>
   </div>
-  <button class="update_button">
+  <button id="update_button" class="update_button">
     更新
   </button>
   <div class="msgs_frame">

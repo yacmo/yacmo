@@ -1,13 +1,13 @@
-#  id         :integer  not null, primary key
-#  leaders_id :integer  not null
-#  users_id   :integer  not null
-#  message    :text
-#  created_at :datetime
-#  updated_at :datetime
-
+# coding: utf-8
 class DashboardsController < ApplicationController
   def index
-    @user_data_histories = UserDataHistory.last
+    # 最新のデータ
+    latest_data = current_user.user_data_histories.order(:created_at).last
+    # 最新の体重
+    @latest_body_mass = latest_data.body_mass
+    # 最新の歩数
+    @latest_steps = latest_data.steps
+    # メッセージの履歴
     @message_histories = MessageHistory.all
   end
 end

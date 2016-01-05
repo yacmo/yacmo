@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103161540) do
+ActiveRecord::Schema.define(version: 20160105123501) do
 
   create_table "message_histories", force: :cascade do |t|
     t.integer  "leaders_id", null: false
-    t.integer  "users_id",   null: false
+    t.integer  "user_id",    null: false
     t.text     "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "user_data_histories", force: :cascade do |t|
-    t.integer  "users_id",   null: false
+    t.integer  "user_id",    null: false
     t.integer  "steps",      null: false
     t.float    "body_mass",  null: false
     t.datetime "created_at", null: false

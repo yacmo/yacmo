@@ -14,3 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+(function($) {
+    $("document").ready(function() {
+        $("#update_button").click(function() {
+            location.reload();
+        });
+    });
+})(jQuery);

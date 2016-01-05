@@ -11,6 +11,13 @@
   float: left;
 }
 
+.status_area {
+  margin: 2px;
+  padding-left: 10px;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
+
 .update_button {
   width: 48px;
   height: 48px;
@@ -18,31 +25,25 @@
   margin-left: 4px;
   border: 0px;
   border-radius: 4px;
+  background-color: #f0faf0;
   float: none;
   decorate: none;
 }
 
-.txt_area_base {
-  margin: 2px;
-  padding-left: 10px;
-  border-radius: 4px;
-}
-
-.bgc_gray {
-  background-color: #f5f5f5;
-}
-
 .msgs_frame {
   margin-top: 40px;
+  border-radius: 4px;
 }
 
 
 .msg_area_base {
   margin-top: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-left: 10px;
-  box-shadow: 1px 1px 0px rgba(128, 128, 128, .2);
+/*  box-shadow: 1px 1px 0px rgba(128, 128, 128, .2); */
   border-radius: 4px;
-  background-color: #f5fffa;
-  color: #808080;
+  background-color: #f0f0fa;
+  color: #505050;
 }
 
