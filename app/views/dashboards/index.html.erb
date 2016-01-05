@@ -1,2 +1,31 @@
-<h1>Dashboards#index</h1>
-<p>Find me in app/views/dashboards/index.html.erb</p>
+<% if user_signed_in? %>
+<div class="main_div">
+  <div>
+    <%= current_user.email %>でログイン中
+  </div>
+  <div class="status_frame">
+    <div class="txt_area_base bgc_gray">
+      体重:
+    </div>
+    <div class="txt_area_base bgc_gray">
+      歩数:
+    </div>
+  </div>
+  <button class="update_button">
+    更新
+  </button>
+  <div class="msgs_frame">
+    <% if @message_histories.count > 0 %>
+    <% @message_histories.each do |message_history| %>
+    <div class="msg_area_base">
+      <%= message_history.message %>
+    </div>
+    <% end %>
+    <% else %>
+    <div class="msg_area_base">
+    表示するメッセージがありません
+    </div>
+    <% end %>
+  </div>
+</div>
+<% end %>
