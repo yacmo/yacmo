@@ -11,8 +11,14 @@ class DashboardsController < ApplicationController
         @latest_steps = latest_data.steps
         # メッセージの履歴
         @message_histories = MessageHistory.all
+      else
+        # 最新の体重
+        @latest_body_mass = "----"
+        # 最新の歩数
+        @latest_steps = "----"
+        # メッセージの履歴
+        @message_histories = nil
       end
-    else
     end
   end
 end
