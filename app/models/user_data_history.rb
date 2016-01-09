@@ -30,12 +30,15 @@ class UserDataHistory < ActiveRecord::Base
       return
     end
 
-    # activities = client.activities_on_date('today')
-    # puts activities
+    # 体重の取得
+    weight = client.user_info['user']["weight"] * 0.453592
+    p "体重: #{weight}"
+    # 歩数の取得
+    activities = client.activities_on_date('today')
+    steps = activities["summary"]["steps"]
+    p "歩数: #{steps}"
 
     # friendの情報の取得方法
     # puts client.friends
-    # user_infoの取得方法
-    # puts client.user_info['user']
   end
 end
