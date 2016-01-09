@@ -1,0 +1,2 @@
+class UserDataHistoriesController < ApplicationController
+end

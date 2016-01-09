@@ -1,8 +1,11 @@
 # coding: utf-8
 class DashboardsController < ApplicationController
   def index
+    reload
+  end
+
+  def reload
     if !current_user.blank?
-      # 最新のデータ
       if !current_user.user_data_histories.blank?
         latest_data = current_user.user_data_histories.order(:created_at).last
         # 最新の体重

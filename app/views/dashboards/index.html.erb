@@ -11,15 +11,13 @@
       歩数: <%= @latest_steps %> 歩
     </div>
   </div>
-  <button id="update_button" class="update_button">
-    更新
-  </button>
+  <%= link_to "更新", dashboards_path, class: "update_button" %>
   <div class="msgs_frame">
     <!-- メッセージ履歴が存在する場合 -->
     <% if !@message_histories.blank? %>
       <!-- メッセージ履歴が1つ以上存在する場合 -->
       <% if @message_histories.count > 0 %>
-        <% @message_histories.each do |message_history| %>
+      <% @message_histories.each do |message_history| %>
           <div class="msg_area_base">
             <%= message_history.message %>
           </div>
