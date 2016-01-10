@@ -5,9 +5,10 @@ class DashboardsController < ApplicationController
   end
 
   def reload
-    UserDataHistory.update_user_data
-    
+
     if !current_user.blank?
+      # UserDataHistory.update_user_data
+      current_user.update_user_data
       if !current_user.user_data_histories.blank?
         latest_data = current_user.user_data_histories.order(:created_at).last
         # 最新の体重

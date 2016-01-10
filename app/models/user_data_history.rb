@@ -16,6 +16,7 @@ class UserDataHistory < ActiveRecord::Base
                puts "Cud not parse YAMLE: #{e.message}"
              end
 
+    p config[:oauth]
     client = Fitgem::Client.new(config[:oauth])
 
     if config[:oauth][:token] && config[:oauth][:secret]
