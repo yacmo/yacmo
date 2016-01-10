@@ -10,10 +10,10 @@
     <div class="app_header">
       <div class="app_title" >YACMO</div>
       <% if user_signed_in? %>
-        <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "link" %>
+        <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "link logout" %>
       <% else %>
-        <%= link_to "Sign in", new_user_registration_path, class: "link" %>
-        <%= link_to "Log in", new_user_session_path, class: "link" %>
+        <%= link_to "Sign in", new_user_registration_path, class: "link signin" %>
+        <%= link_to "Log in", new_user_session_path, class: "link login" %>
       <% end %>
     </div>
     <%= yield %>
