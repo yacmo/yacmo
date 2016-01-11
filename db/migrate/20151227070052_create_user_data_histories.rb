@@ -3,7 +3,7 @@ class CreateUserDataHistories < ActiveRecord::Migration
     create_table :user_data_histories do |t|
       t.integer :users_id,  null: false
       t.integer :steps,     null: false
-      t.float   :body_mass, null: false
+      t.float   :weight
 
       t.timestamps null: false
     end

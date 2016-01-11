@@ -2,7 +2,7 @@
 #  id         :integer  not null
 #  user_id    :integer  not null
 #  steps      :integer  not null
-#  body_mass  :float    not null
+#  weight     :float
 #  created_at :datetime
 #  updated_at :datetime
 

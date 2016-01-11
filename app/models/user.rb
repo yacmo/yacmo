@@ -17,43 +17,48 @@ class User < ActiveRecord::Base
 
   has_many :user_data_histories
 
-  def update_user_data
-    user_token = {
-      :consumer_key => self.consumer_key,
-      :consumer_secret => self.consumer_secret,
-      :token => self.token,
-      :secret => self.secret
-    }
+  def fetch_recent_datas
+    from = 30.days.ago.to_date
+    to = Date.today
+    fetch_steps_on_range(from, to)['activities-steps'].each do |hash|
+      date = hash['dateTime'] # YYYY-MM-DD 形式
+      steps = hash['value']
+      if udh = user_data_histories.where(date: date).take
+        udh.update(steps: steps)
+      else
+        user_data_histories.create(date: date, steps: steps)
+      end
+    end
+    (from..to).each do |date|
+      weight = fetch_weight_on(date)
+      next if weight.nil?
+      if udh = user_data_histories.where(date: date).take
+        udh.update(weight: weight)
+      else
+        user_data_histories.create(date: date, weight: weight)
+      end
+    end
+  end
 
-    client = Fitgem::Client.new(user_token)
+  def fetch_weight_on(date)
+    values = fitgem_client.body_measurements_on_date(date.to_s(:db))
+    User.lb2kg(values['body']['weight']) rescue nil
+  end
 
-    ################## 体重 ######################
-    # 体重の取得
-    weight = client.user_info['user']["weight"] * 0.453592
-    # 目標体重
-    # client.body_weight_goal["weight"]
+  def fetch_steps_on_range(from, to)
+    fitgem_client.activity_on_date_range('steps', from, to)
+  end
 
-    # 目標体重
-    weight_goal = client.body_weight_goal["goal"]["weight"]
-    # 開始日時
-    # client.body_weight_goal["goal"]["startDate"]
-    # 開始時の体重
-    start_weight = client.body_weight_goal["goal"]["startWeight"]
-    # 現在の体重
-    current_weight = client.user_info['user']["weight"]
-    # 体重の達成度
-    @weight_achievement = (start_weight - current_weight) / (start_weight - weight_goal ) * 100
-    
-    ################## 歩数 ######################
-    # 歩数の取得
-    activities = client.activities_on_date('today')
-    steps = activities["summary"]["steps"]
-    p "歩数: #{steps}"
-    # 歩数の目標
-    steps_achievement = steps / activities["goals"]["steps"] * 100
-    p "歩数達成度: #{steps_achievement}"
+  def fitgem_client
+    Fitgem::Client.new(
+      consumer_key: consumer_key,
+      consumer_secret: consumer_secret,
+      token: token,
+      secret: secret)
+  end
 
-    # 履歴の作成
-    UserDataHistory.create(user_id: self.id, steps: steps, body_mass: weight)
+  def self.lb2kg(lb)
+    nil if lb.nil? || lb.zero?
+    lb * 0.45359237
   end
 end
