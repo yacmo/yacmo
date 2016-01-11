@@ -3,6 +3,7 @@
     こんにちは、<%= current_user.user_name %>さん
   </div>
   <div class="sepa"></div>
+  <%= link_to "更新", dashboards_path, class: "update_button" %>
   <div class="status_frame">
     <div>
       体重
@@ -22,8 +23,7 @@
     <div class="status_area">
       達成回数: <%= %>     回(過去7日)
     </div> -->
-  </div><!--
-  <%= link_to "更新", dashboards_path, class: "update_button" %> -->
+  </div>
   <div class="sepa"></div>
   <div class="msgs_frame">
     <!-- メッセージ履歴が存在する場合 -->
