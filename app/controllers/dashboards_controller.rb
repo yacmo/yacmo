@@ -1,16 +1,16 @@
 # coding: utf-8
 class DashboardsController < ApplicationController
+  before_action :authenticate_user!
+
   def show
-    if !current_user.blank?
-      # 最新の情報を取得
-      @user_data_history = current_user.
-        user_data_histories.
-        order('date DESC').
-        first
-      @user_data_history ||= current_user.user_data_histories.new
-      # メッセージの履歴
-      @message_histories = get_message_histories
-    end
+    # 最新の情報を取得
+    @user_data_history = current_user.
+      user_data_histories.
+      order('date DESC').
+      first
+    @user_data_history ||= current_user.user_data_histories.new
+    # メッセージの履歴
+    @message_histories = get_message_histories
   end
 
   def reload
