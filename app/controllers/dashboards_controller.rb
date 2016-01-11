@@ -29,7 +29,7 @@ class DashboardsController < ApplicationController
   end
 
   def set_status(client)
-    if !client.blank?
+    if !client.blank? && client.user_info['success']
       # 最新の体重
       @latest_body_mass = (client.user_info['user']["weight"] * 0.453592).round(1)
       # 体重の達成度
@@ -58,10 +58,14 @@ class DashboardsController < ApplicationController
   end
 
   def get_steps_achievement(client)
-    steps_achievement = client.activities_on_date('today')["goals"]["steps"]
-    # 歩数の取得
-    latest_steps = client.activities_on_date('today')["goals"]["steps"]
-    latest_steps / steps_achievement
+    if !client.blank? && client.activities_on_date('today')['success']
+      steps_achievement = client.activities_on_date('today')["goals"]["steps"]
+      # 歩数の取得
+      latest_steps = client.activities_on_date('today')["summary"]["steps"]
+      latest_steps / steps_achievement
+    else
+      "NAN"
+    end
   end
 
   def get_weight_achievement(client)
