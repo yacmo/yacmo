@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111052920) do
+ActiveRecord::Schema.define(version: 20160111073228) do
 
   create_table "message_histories", force: :cascade do |t|
     t.integer  "leaders_id",             null: false
@@ -24,12 +24,14 @@ ActiveRecord::Schema.define(version: 20160111052920) do
   end
 
   create_table "user_data_histories", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "steps",      null: false
+    t.integer  "user_id",     null: false
+    t.integer  "steps",       null: false
     t.float    "weight"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.date     "date",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.date     "date",        null: false
+    t.integer  "steps_goal"
+    t.float    "weight_goal"
   end
 
   add_index "user_data_histories", ["date", "user_id"], name: "user_data_histories_unique_in", unique: true

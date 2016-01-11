@@ -17,6 +17,33 @@ class User < ActiveRecord::Base
 
   has_many :user_data_histories
 
+  def self.fetch_all_today_datas
+    all.each { |u| u.fetch_today }
+  end
+
+  def self.update_all_users_recet_datas
+    all.each { |u| u.fetch_recent_datas }
+  end
+
+  def fetch_today
+    today = Date.today.strftime('%Y-%m-%d')
+    activities = fitgem_client.activities_on_date(today)
+    body_measurements = fitgem_client.body_measurements_on_date(today)
+
+    values = {
+      steps: activities['summary']['steps'],
+      steps_goal: activities['goals']['steps'],
+      weight: User.lb2kg(body_measurements['body']['weight']),
+      weight_goal: User.lb2kg(body_measurements['goals']['weight'])
+    }
+
+    if udh = user_data_histories.where(date: today)
+      udh.update(values)
+    else
+      user_data_histories.create(values.merge(date: today))
+    end
+  end
+
   def fetch_recent_datas
     from = 30.days.ago.to_date
     to = Date.today
@@ -24,16 +51,16 @@ class User < ActiveRecord::Base
       date = hash['dateTime'] # YYYY-MM-DD 形式
       steps = hash['value']
       if udh = user_data_histories.where(date: date).take
-        udh.update(steps: steps)
+        udh.update(steps: steps, steps_goal: goal)
       else
         user_data_histories.create(date: date, steps: steps)
       end
     end
-    (from..to).each do |date|
+    ['yesterday', 'today'].each do |date|
       weight = fetch_weight_on(date)
       next if weight.nil?
       if udh = user_data_histories.where(date: date).take
-        udh.update(weight: weight)
+        udh.update(weight: weight, weight_goal: goal)
       else
         user_data_histories.create(date: date, weight: weight)
       end
