@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111073228) do
+ActiveRecord::Schema.define(version: 20160111080300) do
 
   create_table "message_histories", force: :cascade do |t|
     t.integer  "leaders_id",             null: false
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160111073228) do
     t.string   "token"
     t.string   "secret"
     t.string   "fitgem_user_id"
+    t.float    "start_weight"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

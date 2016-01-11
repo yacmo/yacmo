@@ -7,6 +7,7 @@
 #  consumer_secret :string
 #  token           :string
 #  secret          :string
+#  start_weight    :float
 #  fitgem_user_id  :string
 
 class User < ActiveRecord::Base
@@ -37,11 +38,20 @@ class User < ActiveRecord::Base
       weight_goal: User.lb2kg(body_measurements['goals']['weight'])
     }
 
-    if udh = user_data_histories.where(date: today)
+    if udh = user_data_histories.where(date: today).take
       udh.update(values)
     else
       user_data_histories.create(values.merge(date: today))
     end
+
+    update_body_weight_goal
+  end
+
+  def update_body_weight_goal
+    body_weight_goal = fitgem_client.body_weight_goal
+    start_weight = User.lb2kg(body_weight_goal['goal']['startWeight'])
+
+    update(start_weight: start_weight)
   end
 
   def fetch_recent_datas

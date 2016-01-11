@@ -3,26 +3,31 @@
     こんにちは、<%= current_user.user_name %>さん
   </div>
   <div class="sepa"></div>
-  <%= link_to "更新", dashboards_path, class: "update_button" %>
+  <%= link_to "更新", reload_dashboard_path, class: "update_button" %>
   <div class="status_frame">
     <div>
       体重
     </div>
     <div class="status_area">
-      <%= @latest_body_mass %> kg 
+      <%= number_with_precision(@user_data_history.weight, precision: 1) %> kg 
     </div>
     <div class="status_area">
-      達成度: <%= @weight_achievement %>%
+      達成度: <%= number_to_percentage(@user_data_history.weight_achievement, precision: 1) %>
     </div>
     <div>
       歩数
     </div>
     <div class="status_area">
-      <%= @latest_steps %> 歩
-    </div><!--
+      <%= number_with_delimiter(@user_data_history.steps) %> 歩
+    </div>
+    <div class="status_area">
+      達成度: <%= number_to_percentage(@user_data_history.steps_achievement, precision: 1) %>
+    </div>
+    <!--
     <div class="status_area">
       達成回数: <%= %>     回(過去7日)
-    </div> -->
+    </div>
+    -->
   </div>
   <div class="sepa"></div>
   <div class="msgs_frame">

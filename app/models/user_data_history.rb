@@ -7,5 +7,13 @@
 #  updated_at :datetime
 
 class UserDataHistory < ActiveRecord::Base
-  belongs_to :users
+  belongs_to :user
+
+  def steps_achievement
+    steps.to_f / steps_goal * 100 rescue nil
+  end
+
+  def weight_achievement
+    (user.start_weight - weight) / (user.start_weight - weight_goal) * 100 rescue nil
+  end
 end
