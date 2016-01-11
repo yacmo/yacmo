@@ -4,6 +4,7 @@
 
 .main_div {
   width: 260px;
+  fload: none;
 }
 
 .status_frame {
@@ -19,15 +20,28 @@
 }
 
 .update_button {
-  width: 48px;
-  height: 48px;
-  margin-top: 4px;
-  margin-left: 4px;
+  margin-top: 10px;
+  padding-top: 3px;
+  padding-left: 130px;
+  padding-bottom: 3px;
+  padding-right: 130px;
   border: 0px;
   border-radius: 4px;
   background-color: #f0faf0;
+  text-align: center;
   text-decoration: none;
-  float: none;
+}
+.update_button:hover {
+  margin-top: 10px;
+  padding-top: 3px;
+  padding-left: 130px;
+  padding-bottom: 3px;
+  padding-right: 130px;
+  border: 0px;
+  border-radius: 4px;
+  background-color: #e0eae0;
+  text-align: center;
+  text-decoration: none;
 }
 
 .msgs_frame {
