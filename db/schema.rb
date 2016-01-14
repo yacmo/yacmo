@@ -11,17 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111080300) do
+ActiveRecord::Schema.define(version: 20160114202535) do
 
   create_table "message_histories", force: :cascade do |t|
-    t.integer  "leaders_id",             null: false
+    t.integer  "leader_id",              null: false
     t.integer  "user_id",                null: false
     t.text     "message"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "achievement_categories"
     t.integer  "achievement_level"
+    t.date     "date",                   null: false
   end
+
+  add_index "message_histories", ["date", "user_id"], name: "message_histories_unique_in", unique: true
 
   create_table "user_data_histories", force: :cascade do |t|
     t.integer  "user_id",     null: false
