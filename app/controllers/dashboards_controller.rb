@@ -14,8 +14,11 @@ class DashboardsController < ApplicationController
   end
 
   def reload
-    current_user.fetch_today
-
+    begin
+      current_user.fetch_today
+    rescue => e
+      p "更新処理に失敗しました: #{e}"
+    end
     redirect_to dashboard_path
   end
 
